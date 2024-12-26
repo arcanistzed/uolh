@@ -1,0 +1,35 @@
+---
+import { changeLanguage, setDefaultNamespace, t } from "i18next";
+import Layout from "../layouts/Layout.astro";
+
+changeLanguage("en");
+
+setDefaultNamespace("governance");
+---
+
+<Layout title={t("title")} description={t("description")}>
+	<main class="mx-auto flex h-full w-full max-w-2xl flex-col gap-8 p-4">
+		<h1 class="text-4xl font-bold leading-relaxed text-tertiary">{t("heading")}</h1>
+		<p class="leading-relaxed">
+			{t("description")}
+		</p>
+		<div class="flex gap-4">
+			<a
+				href="https://docs.google.com/document/d/1GNfZnzhs1jUJHRSdNyTIMxJp_GTSB_xmjfakUxvOYDs/edit?tab=t.0"
+				target="_blank"
+				referrerpolicy="no-referrer"
+				class="rounded bg-primary px-6 py-2 font-bold text-white transition duration-300 hover:bg-secondary"
+			>
+				{t("constitution")}
+			</a>
+			<a
+				href="https://drive.google.com/drive/folders/1FceJP3uJaJWtQAW8pvvMs-BgBH984SXx"
+				target="_blank"
+				referrerpolicy="no-referrer"
+				class="rounded bg-primary px-6 py-2 font-bold text-white transition duration-300 hover:bg-secondary"
+			>
+				{t("meeting-minutes")}
+			</a>
+		</div>
+	</main>
+</Layout>

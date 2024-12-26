@@ -1,0 +1,52 @@
+---
+import { changeLanguage, setDefaultNamespace, t } from "i18next";
+import { Trans } from "astro-i18next/components";
+import { localizePath } from "astro-i18next";
+import Layout from "../layouts/Layout.astro";
+
+changeLanguage("en");
+
+setDefaultNamespace("home");
+---
+
+<Layout title={t("title")} description={t("description")}>
+	<div class="my-auto flex flex-col items-center gap-8">
+		<h1
+			class="mb-auto max-w-3xl animate-[fade_5s_forwards] text-center font-serif text-[6vmin] font-extrabold leading-normal tracking-wide text-primary opacity-0"
+		>
+			{t("heading")}
+		</h1>
+		<h2 class="max-w-3xl animate-[fade_5s_forwards_1s] text-center text-2xl font-bold text-secondary opacity-0">
+			{t("subheading")}
+		</h2>
+		<p class="max-w-3xl animate-[fade_5s_forwards_2s] text-center text-lg leading-relaxed opacity-0">
+			<Trans i18nKey="contents">
+				<span class="font-bold text-tertiary">uOttawa Legal Hackers</span> is a dynamic, student-led organization
+				dedicated to exploring the intersection of
+				<span class="font-semibold text-quaternary">law</span>, <span class="font-semibold text-primary"
+					>policy</span
+				>,
+				<span class="font-semibold text-secondary">technology</span>. As the third Legal Hackers chapter in
+				Canada, we provide a platform for students to engage with industry leaders through roundtables,
+				webinars, and workshops. Join us in our mission to foster innovation, creativity, and inclusivity in the
+				legal tech space.
+			</Trans>
+		</p>
+		<div class="flex animate-[fade_5s_forwards_3s] gap-4 opacity-0">
+			<a
+				href="https://forms.gle/qArg7RfNRrhedd1y7"
+				target="_blank"
+				referrerpolicy="no-referrer"
+				class="rounded bg-tertiary px-6 py-2 font-bold text-white transition duration-300 hover:bg-quaternary"
+			>
+				{t("join-the-club")}
+			</a>
+			<a
+				href={localizePath("/events")}
+				class="rounded bg-primary px-6 py-2 font-bold text-white transition duration-300 hover:bg-secondary"
+			>
+				{t("explore-events")}
+			</a>
+		</div>
+	</div>
+</Layout>

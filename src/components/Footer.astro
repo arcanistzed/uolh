@@ -1,0 +1,39 @@
+---
+import { Trans } from "astro-i18next/components";
+import { Icon } from "astro-icon";
+import { setDefaultNamespace, t } from "i18next";
+
+setDefaultNamespace("footer");
+---
+
+<footer class="mx-auto max-w-4xl px-4 py-2 text-center">
+	<nav aria-label="Social media links" class="mx-auto w-fit">
+		<ul class="flex gap-2">
+			<li>
+				<a href="https://www.instagram.com/uolh_hluo/">
+					<Icon pack="mdi" name="instagram" class="h-8 w-8 text-tertiary" />
+					<span class="sr-only">{t("instagram")}</span>
+				</a>
+			</li>
+			<li>
+				<a href="mailto:uottawalh@gmail.com">
+					<Icon pack="mdi" name="email" class="h-8 w-8 text-tertiary" />
+					<span class="sr-only">{t("email")}</span>
+				</a>
+			</li><li>
+				<a href="https://discord.gg/yNJNNfjRtV">
+					<Icon pack="ic" name="baseline-discord" class="h-8 w-8 text-tertiary" />
+					<span class="sr-only">{t("discord")}</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<small>{t("copyright")}</small>
+	<small>
+		<Trans i18nKey="footer">
+			Made with <span class="">♥</span> by <a href="https://danielthorp.com" class="font-bold text-quaternary">
+				Daniel Thorp
+			</a>.
+		</Trans>
+	</small>
+</footer>

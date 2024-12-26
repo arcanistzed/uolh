@@ -1,0 +1,49 @@
+---
+import { changeLanguage, setDefaultNamespace, t } from "i18next";
+import { localizePath } from "astro-i18next";
+import { LanguageSelector } from "astro-i18next/components";
+
+setDefaultNamespace("navbar");
+---
+
+<nav
+	aria-label="Navigation Bar"
+	class="border-b-4 border-primary/50 text-center text-secondary"
+>
+	<ul class="flex flex-col items-center px-2 sm:flex-row sm:p-0">
+		<li class="sm:mr-auto">
+			<a href={localizePath("/")} class="block py-2 sm:p-3">
+				<h1 class="text-2xl text-tertiary">{t("home")}</h1>
+			</a>
+		</li>
+		<li class="w-full sm:w-fit">
+			<a
+				href={localizePath("/events")}
+				class="block w-full py-2 transition-colors duration-500 hover:bg-secondary hover:text-white sm:p-4 rounded sm:rounded-none"
+			>
+				{t("events")}
+			</a>
+		</li>
+		<li class="w-full sm:w-fit">
+			<a
+				href={localizePath("/governance")}
+				class="block w-full py-2 transition-colors duration-500 hover:bg-secondary hover:text-white sm:p-4 rounded sm:rounded-none"
+			>
+				{t("governance")}
+			</a>
+		</li>
+		<li class="w-full sm:w-fit">
+			<a
+				href={localizePath("/team")}
+				class="block w-full py-2 transition-colors duration-500 hover:bg-secondary hover:text-white sm:p-4 rounded sm:rounded-none"
+			>
+				{t("team")}
+			</a>
+		</li>
+		<li class="flex items-center py-2">
+			<LanguageSelector
+				class="mx-2 block rounded-md border border-secondary/50 bg-transparent px-2 py-2 text-secondary transition-colors duration-500 hover:bg-secondary hover:text-white"
+			/>
+		</li>
+	</ul>
+</nav>

@@ -1,0 +1,21 @@
+---
+import { changeLanguage, setDefaultNamespace, t } from "i18next";
+import Layout from "../layouts/Layout.astro";
+
+changeLanguage("en");
+
+setDefaultNamespace("events");
+---
+
+<Layout title={t("title")} description={t("description")}>
+	<main class="mx-auto flex h-full w-full max-w-2xl flex-col gap-8 p-4">
+		<h1 class="text-4xl font-bold leading-relaxed text-tertiary">{t("heading")}</h1>
+		<p class="leading-relaxed">
+			{t("description")}
+		</p>
+		<iframe
+			src="https://calendar.google.com/calendar/embed?wkst=1&ctz=America%2FToronto&showPrint=0&showCalendars=0&showNav=0&showDate=0&showTabs=0&mode=AGENDA&showTitle=0&src=ZjNmYzJiYWQ3MzM1YTNiNGRkMTIyZTEwZjA3ODc0NWViODEzMmU5NDczMTM1ZjQ0ZGNlOTMyM2JiMDY2YmIyMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+			style="border-width:0"
+			class="h-full border-none"></iframe>
+	</main>
+</Layout>
