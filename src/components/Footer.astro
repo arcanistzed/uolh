@@ -1,6 +1,6 @@
 ---
 import { Trans } from "astro-i18next/components";
-import { Icon } from "astro-icon";
+import { Icon } from 'astro-icon/components';
 import { setDefaultNamespace, t } from "i18next";
 
 setDefaultNamespace("footer");
@@ -11,18 +11,18 @@ setDefaultNamespace("footer");
 		<ul class="flex gap-2">
 			<li>
 				<a href="https://www.instagram.com/uolh_hluo/">
-					<Icon pack="mdi" name="instagram" class="h-8 w-8 text-tertiary" />
+					<Icon name="line-md:instagram" class="h-8 w-8 text-tertiary" />
 					<span class="sr-only">{t("instagram")}</span>
 				</a>
 			</li>
 			<li>
 				<a href="mailto:uottawalh@gmail.com">
-					<Icon pack="mdi" name="email" class="h-8 w-8 text-tertiary" />
+					<Icon name="line-md:email" class="h-8 w-8 text-tertiary" />
 					<span class="sr-only">{t("email")}</span>
 				</a>
 			</li><li>
 				<a href="https://discord.gg/yNJNNfjRtV">
-					<Icon pack="ic" name="baseline-discord" class="h-8 w-8 text-tertiary" />
+					<Icon name="line-md:discord" class="h-8 w-8 text-tertiary" />
 					<span class="sr-only">{t("discord")}</span>
 				</a>
 			</li>
