@@ -19,14 +19,16 @@ setDefaultNamespace("navbar");
 			id="mobile-menu-button"
 			aria-label="Toggle mobile menu"
 			aria-expanded="false"
+			aria-controls="mobile-menu"
 			class="text-secondary hover:text-tertiary focus:outline-none"
 		>
-			<Icon name="line-md:menu" class="h-8 w-8" />
+			<Icon name="line-md:menu" class="h-8 w-8" aria-hidden="true" />
 		</button>
 	</div>
 	<ul
 		id="mobile-menu"
 		class="hidden flex-col items-center px-2 sm:flex sm:flex-row sm:p-0"
+		aria-hidden="true"
 	>
 		<li class="hidden sm:block sm:mr-auto">
 			<a href={localizePath("/")} class="block py-2 sm:p-3">
@@ -77,10 +79,19 @@ setDefaultNamespace("navbar");
 	const button = document.getElementById("mobile-menu-button");
 	const menu = document.getElementById("mobile-menu");
 
-	button?.addEventListener("click", () => {
-		const isExpanded = button.getAttribute("aria-expanded") === "true";
-		button.setAttribute("aria-expanded", (!isExpanded).toString());
+	const toggleMenu = () => {
+		const isExpanded = button?.getAttribute("aria-expanded") === "true";
+		button?.setAttribute("aria-expanded", (!isExpanded).toString());
+		menu?.setAttribute("aria-hidden", isExpanded.toString());
 		menu?.classList.toggle("hidden");
 		menu?.classList.toggle("flex");
+	};
+
+	button?.addEventListener("click", toggleMenu);
+	button?.addEventListener("keydown", (e) => {
+		if (e.key === "Enter" || e.key === " ") {
+			e.preventDefault();
+			toggleMenu();
+		}
 	});
 </script>
