@@ -32,7 +32,9 @@ import i18next from "i18next";
 	</head>
 	<body class="flex h-screen flex-col gap-4 bg-background">
 		<Navbar />
-		<slot />
+		<div class="flex-1">
+			<slot />
+		</div>
 		<Footer />
 	</body>
 </html>
