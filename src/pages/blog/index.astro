@@ -1,0 +1,53 @@
+---
+import { changeLanguage, setDefaultNamespace, t } from "i18next";
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+changeLanguage("en");
+
+setDefaultNamespace("blog");
+const blogPosts = await getCollection("blog");
+const sortedPosts = blogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title={t("title")} description={t("description")}>
+	<main class="mx-auto flex h-full w-full max-w-2xl flex-col gap-8 p-4">
+		<h1 class="text-4xl font-bold leading-relaxed text-tertiary">{t("heading")}</h1>
+		<p class="leading-relaxed">
+			{t("description")}
+		</p>
+		<div class="flex flex-col gap-6">
+			{sortedPosts.length === 0 ? (
+				<p class="text-center text-gray-500">
+					{t("no-posts")}
+				</p>
+			) : (
+				sortedPosts.map((post) => (
+					<article class="rounded-lg border border-gray-200 p-6 transition-shadow hover:shadow-lg">
+						<a href={`/blog/${post.slug}`} class="group">
+							<h2 class="text-2xl font-bold text-tertiary group-hover:text-quaternary transition-colors">
+								{post.data.title}
+							</h2>
+							<p class="mt-2 text-sm text-gray-600">
+								{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+								{post.data.author && ` • ${post.data.author}`}
+							</p>
+							<p class="mt-3 text-gray-700 leading-relaxed">
+								{post.data.description}
+							</p>
+							{post.data.tags && post.data.tags.length > 0 && (
+								<div class="mt-3 flex flex-wrap gap-2">
+									{post.data.tags.map((tag) => (
+										<span class="rounded bg-secondary/10 px-2 py-1 text-xs text-secondary">
+											{tag}
+										</span>
+									))}
+								</div>
+							)}
+						</a>
+					</article>
+				))
+			)}
+		</div>
+	</main>
+</Layout>
