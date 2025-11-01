@@ -22,12 +22,13 @@ setDefaultNamespace("navbar");
 			aria-controls="mobile-menu"
 			class="relative text-secondary hover:text-tertiary focus:outline-none z-50"
 		>
-			<Icon id="menu-icon" name="line-md:menu-to-close-transition" class="h-8 w-8" aria-hidden="true" />
+			<Icon id="menu-icon-hamburger" name="line-md:menu" class="h-8 w-8" aria-hidden="true" />
+			<Icon id="menu-icon-close" name="line-md:close" class="h-8 w-8 absolute inset-0 hidden" aria-hidden="true" />
 		</button>
 	</div>
 	<ul
 		id="mobile-menu"
-		class="fixed inset-y-0 right-0 z-40 hidden w-full flex-col items-center justify-center gap-6 bg-background translate-x-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-0 md:w-auto md:bg-transparent md:p-0 md:translate-x-0"
+		class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-6 bg-background translate-x-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-0 md:w-auto md:bg-transparent md:p-0 md:translate-x-0"
 		aria-hidden="true"
 	>
 		<li class="hidden md:block md:mr-auto">
@@ -78,7 +79,8 @@ setDefaultNamespace("navbar");
 <script>
 	const button = document.getElementById("mobile-menu-button");
 	const menu = document.getElementById("mobile-menu");
-	const menuIcon = document.getElementById("menu-icon");
+	const hamburgerIcon = document.getElementById("menu-icon-hamburger");
+	const closeIcon = document.getElementById("menu-icon-close");
 
 	const toggleMenu = () => {
 		const isExpanded = button?.getAttribute("aria-expanded") === "true";
@@ -86,14 +88,20 @@ setDefaultNamespace("navbar");
 		menu?.setAttribute("aria-hidden", isExpanded.toString());
 		
 		if (isExpanded) {
-			// Closing: slide out to the right
+			// Closing: slide out to the right and show hamburger icon
 			menu?.classList.add("translate-x-full");
+			hamburgerIcon?.classList.remove("hidden");
+			closeIcon?.classList.add("hidden");
 			setTimeout(() => {
 				menu?.classList.add("hidden");
+				menu?.classList.remove("flex");
 			}, 300);
 		} else {
-			// Opening: show then slide in from the right
+			// Opening: show then slide in from the right and show close icon
 			menu?.classList.remove("hidden");
+			menu?.classList.add("flex");
+			hamburgerIcon?.classList.add("hidden");
+			closeIcon?.classList.remove("hidden");
 			setTimeout(() => {
 				menu?.classList.remove("translate-x-full");
 			}, 10);
