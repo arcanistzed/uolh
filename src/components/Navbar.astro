@@ -2,6 +2,7 @@
 import { changeLanguage, setDefaultNamespace, t } from "i18next";
 import { localizePath } from "astro-i18next";
 import { LanguageSelector } from "astro-i18next/components";
+import { Icon } from "astro-icon/components";
 
 setDefaultNamespace("navbar");
 ---
@@ -10,8 +11,24 @@ setDefaultNamespace("navbar");
 	aria-label="Navigation Bar"
 	class="border-b-4 border-primary/50 text-center text-secondary"
 >
-	<ul class="flex flex-col items-center px-2 sm:flex-row sm:p-0">
-		<li class="sm:mr-auto">
+	<div class="flex items-center justify-between px-4 py-2 sm:hidden">
+		<a href={localizePath("/")} class="block">
+			<h1 class="text-2xl text-tertiary">{t("home")}</h1>
+		</a>
+		<button
+			id="mobile-menu-button"
+			aria-label="Toggle mobile menu"
+			aria-expanded="false"
+			class="text-secondary hover:text-tertiary focus:outline-none"
+		>
+			<Icon name="line-md:menu" class="h-8 w-8" />
+		</button>
+	</div>
+	<ul
+		id="mobile-menu"
+		class="hidden flex-col items-center px-2 sm:flex sm:flex-row sm:p-0"
+	>
+		<li class="hidden sm:block sm:mr-auto">
 			<a href={localizePath("/")} class="block py-2 sm:p-3">
 				<h1 class="text-2xl text-tertiary">{t("home")}</h1>
 			</a>
@@ -55,3 +72,15 @@ setDefaultNamespace("navbar");
 		</li>
 	</ul>
 </nav>
+
+<script>
+	const button = document.getElementById("mobile-menu-button");
+	const menu = document.getElementById("mobile-menu");
+
+	button?.addEventListener("click", () => {
+		const isExpanded = button.getAttribute("aria-expanded") === "true";
+		button.setAttribute("aria-expanded", (!isExpanded).toString());
+		menu?.classList.toggle("hidden");
+		menu?.classList.toggle("flex");
+	});
+</script>
