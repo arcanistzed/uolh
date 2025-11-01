@@ -2,5 +2,17 @@
     "title": "Rencontrez l'équipe | uOttawa Legal Hackers",
     "heading": "Rencontrez l'équipe",
     "description": "Faites connaissance avec l'équipe derrière uOttawa Legal Hackers. Notre équipe de direction est dédiée à la promotion de l'innovation et de l'inclusivité. Rencontrez les leaders qui font tout cela!",
-    "coming-soon": "Bientôt disponible!"
+    "select-year": "Sélectionner l'année:",
+    "vacant": "Vacant",
+    "positions": {
+        "president": "Président",
+        "co-president": "Co-président.e",
+        "advisor": "Conseiller",
+        "vp-communications": "VP Communications",
+        "vp-finance": "VP Finance",
+        "vp-events": "VP Événements",
+        "vp-internal": "VP Interne",
+        "vp-external": "VP Externe",
+        "first-year-rep": "Rep des 1ère année"
+    }
 }
