@@ -11,7 +11,7 @@ setDefaultNamespace("navbar");
 	aria-label="Navigation Bar"
 	class="border-b-4 border-primary/50 text-center text-secondary"
 >
-	<div class="flex items-center justify-between px-4 py-2 sm:hidden">
+	<div class="flex items-center justify-between px-4 py-2 md:hidden">
 		<a href={localizePath("/")} class="block">
 			<h1 class="text-2xl text-tertiary">{t("home")}</h1>
 		</a>
@@ -20,54 +20,54 @@ setDefaultNamespace("navbar");
 			aria-label="Toggle mobile menu"
 			aria-expanded="false"
 			aria-controls="mobile-menu"
-			class="text-secondary hover:text-tertiary focus:outline-none"
+			class="text-secondary hover:text-tertiary focus:outline-none z-50"
 		>
 			<Icon name="line-md:menu" class="h-8 w-8" aria-hidden="true" />
 		</button>
 	</div>
 	<ul
 		id="mobile-menu"
-		class="hidden flex-col items-center px-2 sm:flex sm:flex-row sm:p-0"
+		class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-6 bg-background opacity-0 transition-opacity duration-300 md:static md:flex md:flex-row md:gap-0 md:bg-transparent md:p-0 md:opacity-100"
 		aria-hidden="true"
 	>
-		<li class="hidden sm:block sm:mr-auto">
-			<a href={localizePath("/")} class="block py-2 sm:p-3">
+		<li class="hidden md:block md:mr-auto">
+			<a href={localizePath("/")} class="block py-2 md:p-3">
 				<h1 class="text-2xl text-tertiary">{t("home")}</h1>
 			</a>
 		</li>
-		<li class="w-full sm:w-fit">
+		<li class="w-full text-center md:w-fit">
 			<a
 				href={localizePath("/events")}
-				class="block w-full py-2 transition-colors duration-500 hover:bg-secondary hover:text-white sm:p-4 rounded sm:rounded-none"
+				class="block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none"
 			>
 				{t("events")}
 			</a>
 		</li>
-		<li class="w-full sm:w-fit">
+		<li class="w-full text-center md:w-fit">
 			<a
 				href={localizePath("/blog")}
-				class="block w-full py-2 transition-colors duration-500 hover:bg-secondary hover:text-white sm:p-4 rounded sm:rounded-none"
+				class="block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none"
 			>
 				{t("blog")}
 			</a>
 		</li>
-		<li class="w-full sm:w-fit">
+		<li class="w-full text-center md:w-fit">
 			<a
 				href={localizePath("/governance")}
-				class="block w-full py-2 transition-colors duration-500 hover:bg-secondary hover:text-white sm:p-4 rounded sm:rounded-none"
+				class="block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none"
 			>
 				{t("governance")}
 			</a>
 		</li>
-		<li class="w-full sm:w-fit">
+		<li class="w-full text-center md:w-fit">
 			<a
 				href={localizePath("/team")}
-				class="block w-full py-2 transition-colors duration-500 hover:bg-secondary hover:text-white sm:p-4 rounded sm:rounded-none"
+				class="block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none"
 			>
 				{t("team")}
 			</a>
 		</li>
-		<li class="flex items-center py-2">
+		<li class="flex items-center justify-center py-2">
 			<LanguageSelector
 				class="mx-2 block rounded-md border border-secondary/50 bg-transparent px-2 py-2 text-secondary transition-colors duration-500 hover:bg-secondary hover:text-white"
 			/>
@@ -83,8 +83,22 @@ setDefaultNamespace("navbar");
 		const isExpanded = button?.getAttribute("aria-expanded") === "true";
 		button?.setAttribute("aria-expanded", (!isExpanded).toString());
 		menu?.setAttribute("aria-hidden", isExpanded.toString());
-		menu?.classList.toggle("hidden");
-		menu?.classList.toggle("flex");
+		
+		if (isExpanded) {
+			// Closing: fade out then hide
+			menu?.classList.remove("opacity-100");
+			menu?.classList.add("opacity-0");
+			setTimeout(() => {
+				menu?.classList.add("hidden");
+			}, 300);
+		} else {
+			// Opening: show then fade in
+			menu?.classList.remove("hidden");
+			setTimeout(() => {
+				menu?.classList.remove("opacity-0");
+				menu?.classList.add("opacity-100");
+			}, 10);
+		}
 	};
 
 	button?.addEventListener("click", toggleMenu);
