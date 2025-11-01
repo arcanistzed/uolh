@@ -69,20 +69,22 @@ const teamData = {
 
 	<script>
 		// Handle year selection change
-		const yearSelect = document.getElementById('year-select') as HTMLSelectElement;
+		const yearSelect = document.getElementById('year-select');
 		const teamMembers = document.querySelectorAll('[data-year]');
 
-		yearSelect?.addEventListener('change', (e) => {
-			const selectedYear = (e.target as HTMLSelectElement).value;
-			
-			teamMembers.forEach((member) => {
-				const memberYear = member.getAttribute('data-year');
-				if (memberYear === selectedYear) {
-					member.classList.remove('hidden');
-				} else {
-					member.classList.add('hidden');
-				}
+		if (yearSelect instanceof HTMLSelectElement) {
+			yearSelect.addEventListener('change', () => {
+				const selectedYear = yearSelect.value;
+				
+				teamMembers.forEach((member) => {
+					const memberYear = member.getAttribute('data-year');
+					if (memberYear === selectedYear) {
+						member.classList.remove('hidden');
+					} else {
+						member.classList.add('hidden');
+					}
+				});
 			});
-		});
+		}
 	</script>
 </Layout>
