@@ -20,10 +20,11 @@ setDefaultNamespace("navbar");
 			aria-label="Toggle mobile menu"
 			aria-expanded="false"
 			aria-controls="mobile-menu"
-			class="relative text-secondary hover:text-tertiary focus:outline-none z-50"
+			class="text-secondary hover:text-tertiary focus:outline-none z-50"
 		>
-			<Icon id="menu-icon-hamburger" name="line-md:menu" class="h-8 w-8" aria-hidden="true" />
-			<Icon id="menu-icon-close" name="line-md:close" class="h-8 w-8 absolute inset-0 hidden" aria-hidden="true" />
+			<svg id="menu-icon" class="h-8 w-8" viewBox="0 0 24 24" aria-hidden="true">
+				<path id="menu-icon-path" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18" class="transition-all duration-300" />
+			</svg>
 		</button>
 	</div>
 	<ul
@@ -79,8 +80,7 @@ setDefaultNamespace("navbar");
 <script>
 	const button = document.getElementById("mobile-menu-button");
 	const menu = document.getElementById("mobile-menu");
-	const hamburgerIcon = document.getElementById("menu-icon-hamburger");
-	const closeIcon = document.getElementById("menu-icon-close");
+	const menuIconPath = document.getElementById("menu-icon-path");
 
 	const toggleMenu = () => {
 		const isExpanded = button?.getAttribute("aria-expanded") === "true";
@@ -88,20 +88,18 @@ setDefaultNamespace("navbar");
 		menu?.setAttribute("aria-hidden", isExpanded.toString());
 		
 		if (isExpanded) {
-			// Closing: slide out to the right and show hamburger icon
+			// Closing: slide out to the right and animate to hamburger
 			menu?.classList.add("translate-x-full");
-			hamburgerIcon?.classList.remove("hidden");
-			closeIcon?.classList.add("hidden");
+			menuIconPath?.setAttribute("d", "M3 6h18M3 12h18M3 18h18");
 			setTimeout(() => {
 				menu?.classList.add("hidden");
 				menu?.classList.remove("flex");
 			}, 300);
 		} else {
-			// Opening: show as flex then slide in from the right and show close icon
+			// Opening: show as flex then slide in from the right and animate to X
 			menu?.classList.remove("hidden");
 			menu?.classList.add("flex");
-			hamburgerIcon?.classList.add("hidden");
-			closeIcon?.classList.remove("hidden");
+			menuIconPath?.setAttribute("d", "M6 6l12 12M6 18L18 6");
 			setTimeout(() => {
 				menu?.classList.remove("translate-x-full");
 			}, 10);
