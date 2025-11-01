@@ -10,6 +10,6 @@ export default {
 			team: "equipe",
 		},
 	},
-	namespaces: ["navbar", "footer", "home", "events", "governance", "team"],
+	namespaces: ["navbar", "footer", "home", "events", "blog", "governance", "team"],
 	defaultNamespace: "common",
 } satisfies AstroI18nextConfig;
