@@ -6,6 +6,20 @@ import { LanguageSelector } from "astro-i18next/components";
 setDefaultNamespace("navbar");
 ---
 
+<style>
+	:root {
+		--menu-transition-duration: 300ms;
+	}
+	
+	/* Respect reduced motion preferences */
+	@media (prefers-reduced-motion: reduce) {
+		#mobile-menu,
+		#menu-icon-path {
+			transition-duration: 0.001ms !important;
+		}
+	}
+</style>
+
 <nav
 	aria-label="Navigation Bar"
 	class="border-b-4 border-primary/50 text-center text-secondary"
@@ -22,13 +36,14 @@ setDefaultNamespace("navbar");
 			class="text-secondary hover:text-tertiary focus:ring-2 focus:ring-tertiary z-50"
 		>
 			<svg id="menu-icon" class="h-8 w-8" viewBox="0 0 24 24" aria-hidden="true">
-				<path id="menu-icon-path" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18" class="transition-all duration-300" />
+				<path id="menu-icon-path" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18" style="transition: all var(--menu-transition-duration)" />
 			</svg>
 		</button>
 	</div>
 	<ul
 		id="mobile-menu"
-		class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-6 bg-background translate-x-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-0 md:w-auto md:bg-transparent md:p-0 md:translate-x-0"
+		class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-6 bg-background translate-x-full md:static md:flex md:flex-row md:gap-0 md:w-auto md:bg-transparent md:p-0 md:translate-x-0"
+		style="transition: transform var(--menu-transition-duration)"
 		aria-hidden="true"
 	>
 		<li class="hidden md:block md:mr-auto">
@@ -39,7 +54,7 @@ setDefaultNamespace("navbar");
 		<li class="w-full text-center md:w-fit">
 			<a
 				href={localizePath("/events")}
-				class="block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none"
+				class="nav-link"
 			>
 				{t("events")}
 			</a>
@@ -47,7 +62,7 @@ setDefaultNamespace("navbar");
 		<li class="w-full text-center md:w-fit">
 			<a
 				href={localizePath("/blog")}
-				class="block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none"
+				class="nav-link"
 			>
 				{t("blog")}
 			</a>
@@ -55,7 +70,7 @@ setDefaultNamespace("navbar");
 		<li class="w-full text-center md:w-fit">
 			<a
 				href={localizePath("/governance")}
-				class="block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none"
+				class="nav-link"
 			>
 				{t("governance")}
 			</a>
@@ -63,7 +78,7 @@ setDefaultNamespace("navbar");
 		<li class="w-full text-center md:w-fit">
 			<a
 				href={localizePath("/team")}
-				class="block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none"
+				class="nav-link"
 			>
 				{t("team")}
 			</a>
@@ -76,39 +91,145 @@ setDefaultNamespace("navbar");
 	</ul>
 </nav>
 
+<style>
+	.nav-link {
+		@apply block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none;
+	}
+</style>
+
 <script>
 	const button = document.getElementById("mobile-menu-button");
 	const menu = document.getElementById("mobile-menu");
 	const menuIconPath = document.getElementById("menu-icon-path");
+	
+	// Get all focusable elements in the menu
+	const getFocusableElements = () => {
+		if (!menu) return [];
+		return Array.from(
+			menu.querySelectorAll(
+				'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+			)
+		);
+	};
 
-	const toggleMenu = () => {
-		const isExpanded = button?.getAttribute("aria-expanded") === "true";
-		button?.setAttribute("aria-expanded", (!isExpanded).toString());
-		menu?.setAttribute("aria-hidden", isExpanded.toString());
-		if (isExpanded) {
-			// Closing: slide out to the right and animate to hamburger
-			menu?.classList.add("translate-x-full");
-			menuIconPath?.setAttribute("d", "M3 6h18M3 12h18M3 18h18");
-			setTimeout(() => {
-				menu?.classList.add("hidden");
-				menu?.classList.remove("flex");
-			}, 300);
-		} else {
-			// Opening: show as flex then slide in from the right and animate to X
-			menu?.classList.remove("hidden");
-			menu?.classList.add("flex");
-			menuIconPath?.setAttribute("d", "M6 6l12 12M6 18L18 6");
-			setTimeout(() => {
-				menu?.classList.remove("translate-x-full");
-			}, 10);
+	let lastFocusedElement: HTMLElement | null = null;
+
+	const closeMenu = () => {
+		if (!button || !menu || !menuIconPath) return;
+		
+		// Slide out and animate to hamburger
+		menu.classList.add("translate-x-full");
+		menuIconPath.setAttribute("d", "M3 6h18M3 12h18M3 18h18");
+		button.setAttribute("aria-expanded", "false");
+		menu.setAttribute("aria-hidden", "true");
+		
+		// Re-enable body scroll
+		document.body.style.overflow = "";
+		
+		setTimeout(() => {
+			menu.classList.add("hidden");
+			menu.classList.remove("flex");
+		}, 300);
+		
+		// Restore focus to button
+		if (lastFocusedElement) {
+			lastFocusedElement.focus();
+			lastFocusedElement = null;
 		}
 	};
 
+	const openMenu = () => {
+		if (!button || !menu || !menuIconPath) return;
+		
+		// Save the currently focused element
+		lastFocusedElement = document.activeElement as HTMLElement;
+		
+		// Show menu and animate
+		menu.classList.remove("hidden");
+		menu.classList.add("flex");
+		menuIconPath.setAttribute("d", "M6 6l12 12M6 18L18 6");
+		button.setAttribute("aria-expanded", "true");
+		menu.setAttribute("aria-hidden", "false");
+		
+		// Prevent body scroll
+		document.body.style.overflow = "hidden";
+		
+		setTimeout(() => {
+			menu.classList.remove("translate-x-full");
+			
+			// Focus first focusable element in menu
+			const focusableElements = getFocusableElements();
+			if (focusableElements.length > 0) {
+				focusableElements[0].focus();
+			}
+		}, 10);
+	};
+
+	const toggleMenu = () => {
+		const isExpanded = button?.getAttribute("aria-expanded") === "true";
+		if (isExpanded) {
+			closeMenu();
+		} else {
+			openMenu();
+		}
+	};
+
+	// Focus trap for keyboard navigation
+	const handleFocusTrap = (e: KeyboardEvent) => {
+		if (!menu || menu.classList.contains("hidden")) return;
+		
+		const focusableElements = getFocusableElements();
+		if (focusableElements.length === 0) return;
+		
+		const firstElement = focusableElements[0];
+		const lastElement = focusableElements[focusableElements.length - 1];
+		
+		if (e.key === "Tab") {
+			if (e.shiftKey) {
+				// Shift + Tab
+				if (document.activeElement === firstElement) {
+					e.preventDefault();
+					lastElement.focus();
+				}
+			} else {
+				// Tab
+				if (document.activeElement === lastElement) {
+					e.preventDefault();
+					firstElement.focus();
+				}
+			}
+		}
+	};
+
+	// Event listeners
 	button?.addEventListener("click", toggleMenu);
+	
 	button?.addEventListener("keydown", (e) => {
 		if (e.key === "Enter" || e.key === " ") {
 			e.preventDefault();
 			toggleMenu();
+		}
+	});
+	
+	// ESC key support
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			const isExpanded = button?.getAttribute("aria-expanded") === "true";
+			if (isExpanded) {
+				closeMenu();
+			}
+		}
+	});
+	
+	// Focus trap
+	document.addEventListener("keydown", handleFocusTrap);
+	
+	// Close menu on navigation (when clicking a link)
+	menu?.addEventListener("click", (e) => {
+		const target = e.target as HTMLElement;
+		if (target.tagName === "A") {
+			// Small delay to allow navigation to start
+			setTimeout(closeMenu, 100);
 		}
 	});
 </script>
