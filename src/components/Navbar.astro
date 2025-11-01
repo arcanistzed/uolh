@@ -86,7 +86,6 @@ setDefaultNamespace("navbar");
 		const isExpanded = button?.getAttribute("aria-expanded") === "true";
 		button?.setAttribute("aria-expanded", (!isExpanded).toString());
 		menu?.setAttribute("aria-hidden", isExpanded.toString());
-		
 		if (isExpanded) {
 			// Closing: slide out to the right and animate to hamburger
 			menu?.classList.add("translate-x-full");
