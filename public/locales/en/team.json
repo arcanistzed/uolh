@@ -2,5 +2,17 @@
 	"title": "Meet the Team | uOttawa Legal Hackers",
 	"heading": "Meet the Team",
 	"description": "Get to know the team behind uOttawa Legal Hackers. Our executive team is dedicated to fostering innovation and inclusivity. Meet the leaders who make it all happen!",
-	"coming-soon": "Coming soon!"
+	"select-year": "Select Year:",
+	"vacant": "Vacant",
+	"positions": {
+		"president": "President",
+		"co-president": "Co-president",
+		"advisor": "Advisor",
+		"vp-communications": "VP Communications",
+		"vp-finance": "VP Finance",
+		"vp-events": "VP Events",
+		"vp-internal": "VP Internal",
+		"vp-external": "VP External",
+		"first-year-rep": "First-Year Representative"
+	}
 }
