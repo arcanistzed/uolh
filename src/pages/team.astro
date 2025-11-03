@@ -5,6 +5,28 @@ import Layout from "../layouts/Layout.astro";
 changeLanguage("en");
 
 setDefaultNamespace("team");
+// Team data structure
+const teamData = {
+    "2025-2026": [
+        { position: t("positions.president"), name: "Daniel Thorp" },
+        { position: t("positions.advisor"), name: "Jasmine Jin" },
+        { position: t("positions.vp-communications"), name: "Liya Kassa" },
+        { position: t("positions.vp-finance"), name: t("vacant") },
+        { position: t("positions.vp-events"), name: t("vacant") },
+        { position: t("positions.vp-internal"), name: t("vacant") },
+        { position: t("positions.vp-external"), name: t("vacant") },
+        { position: t("positions.first-year-rep"), name: t("vacant") },
+    ],
+    "2024-2025": [
+        { position: t("positions.co-president"), name: "Daniel Thorp" },
+        { position: t("positions.co-president"), name: "Jasmine Jin" },
+        { position: t("positions.vp-communications"), name: "Joy Karemera" },
+        { position: t("positions.vp-events"), name: "Raheal Woldemariam" },
+        { position: t("positions.vp-external"), name: "Britney Iyaha" },
+        { position: t("positions.vp-internal"), name: "Jenny Bangoub" },
+        { position: t("positions.first-year-rep"), name: "Kira Slator" },
+    ],
+};
 ---
 
 <Layout title={t("title")} description={t("description")}>
@@ -13,6 +35,56 @@ setDefaultNamespace("team");
 		<p class="leading-relaxed">
 			{t("description")}
 		</p>
-		<p class="leading-relaxed">{t("coming-soon")}</p>
+		
+		<!-- Year Selection Dropdown -->
+		<div class="flex flex-col gap-2">
+			<label for="year-select" class="text-lg font-semibold text-tertiary">
+				{t("select-year")}
+			</label>
+			<select
+				id="year-select"
+				class="rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 shadow-sm focus:border-tertiary focus:outline-none focus:ring-2 focus:ring-tertiary"
+			>
+				<option value="2025-2026">2025-2026</option>
+				<option value="2024-2025">2024-2025</option>
+			</select>
+		</div>
+
+		<!-- Team Members Display -->
+		<div id="team-members" class="flex flex-col gap-4">
+			{teamData["2025-2026"].map((member) => (
+				<div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm" data-year="2025-2026">
+					<h3 class="text-lg font-semibold text-tertiary">{member.position}</h3>
+					<p class="text-gray-700">{member.name}</p>
+				</div>
+			))}
+			{teamData["2024-2025"].map((member) => (
+				<div class="hidden rounded-lg border border-gray-200 bg-white p-4 shadow-sm" data-year="2024-2025">
+					<h3 class="text-lg font-semibold text-tertiary">{member.position}</h3>
+					<p class="text-gray-700">{member.name}</p>
+				</div>
+			))}
+		</div>
 	</main>
+
+	<script>
+		// Handle year selection change
+		const yearSelect = document.getElementById('year-select');
+		const teamMembers = document.querySelectorAll('[data-year]');
+
+		if (yearSelect instanceof HTMLSelectElement) {
+			yearSelect.addEventListener('change', () => {
+				const selectedYear = yearSelect.value;
+				
+				teamMembers.forEach((member) => {
+					const memberYear = member.getAttribute('data-year');
+					if (memberYear === selectedYear) {
+						member.classList.remove('hidden');
+					} else {
+						member.classList.add('hidden');
+					}
+				});
+			});
+		}
+	</script>
 </Layout>

@@ -1,7 +1,7 @@
 ---
 title: "Open Letter to the Minister of AI: A Student Perspective on Responsible Innovation"
 description: "The uOttawa Legal Hackers Club Submission for the National AI Strategy, detailing the systemic risks to the Canadian workforce and democracy."
-pubDate: 2025-11-01
+pubDate: 2025-10-31
 author: "Daniel Thorp"
 tags: ["letter", "AI", "policy", "government"]
 ---
