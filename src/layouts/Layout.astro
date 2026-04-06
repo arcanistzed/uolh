@@ -1,6 +1,7 @@
 ---
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
+import "../styles/global.css";
 
 export interface Props {
 	title: string;
@@ -18,10 +19,24 @@ import i18next from "i18next";
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+		<link rel="icon" href="/favicon/favicon.ico" />
+		<link rel="manifest" href="/favicon/site.webmanifest" />
+		<meta name="theme-color" content="#145da0" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content={i18next.language === "fr" ? "fr_CA" : "en_CA"} />
+		<meta property="og:image" content="/logo.png" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="/logo.png" />
 		<HeadHrefLangs />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,11 +45,44 @@ import i18next from "i18next";
 			rel="stylesheet"
 		/>
 	</head>
-	<body class="flex h-screen flex-col gap-4 bg-background">
+	<body class="flex min-h-screen flex-col bg-background text-quaternary antialiased">
+		<div class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_10%_10%,rgba(20,93,160,0.16),transparent_35%),radial-gradient(circle_at_85%_15%,rgba(92,27,109,0.12),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(140,6,6,0.12),transparent_35%)]"></div>
 		<Navbar />
-		<div class="flex-1">
+		<div class="flex-1 py-6">
 			<slot />
 		</div>
 		<Footer />
 	</body>
 </html>
+
+<style is:global>
+	@reference "../styles/global.css";
+
+	.section-shell {
+		@apply mx-auto w-full max-w-4xl px-4;
+	}
+
+	.surface-card {
+		@apply rounded-2xl border border-primary/20 bg-white/85 p-6 shadow-sm backdrop-blur-sm;
+	}
+
+	.btn-primary {
+		@apply inline-flex items-center justify-center rounded-lg bg-primary px-6 py-2.5 font-bold text-white transition duration-300 hover:bg-tertiary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+	}
+
+	.btn-secondary {
+		@apply inline-flex items-center justify-center rounded-lg bg-secondary px-6 py-2.5 font-bold text-white transition duration-300 hover:bg-tertiary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+	}
+
+	.btn-outline {
+		@apply inline-flex items-center justify-center rounded-lg border border-primary bg-transparent px-6 py-2.5 font-bold text-primary transition duration-300 hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+	}
+
+	.page-title {
+		@apply text-4xl font-extrabold leading-tight tracking-tight text-primary;
+	}
+
+	.page-intro {
+		@apply text-lg leading-relaxed text-quaternary/85;
+	}
+</style>

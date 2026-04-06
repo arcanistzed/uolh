@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "tailwind-gradient-mask-image";
+
+@theme {
+	--color-primary: #145da0;
+	--color-secondary: #8c0606;
+	--color-tertiary: #5c1b6d;
+	--color-quaternary: #000000;
+	--color-background: #fdfaef;
+	--font-serif: Merriweather, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+	--font-sans:
+		Montserrat, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@keyframes shrink {
+	from {
+		transform: scaleX(1);
+	}
+
+	to {
+		transform: scaleX(0);
+		opacity: 0;
+	}
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(0.75rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

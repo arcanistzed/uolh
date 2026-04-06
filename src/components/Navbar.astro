@@ -1,251 +1,265 @@
 ---
-import { changeLanguage, setDefaultNamespace, t } from "i18next";
+import { setDefaultNamespace, t } from "i18next";
 import { localizePath } from "astro-i18next";
 import { LanguageSelector } from "astro-i18next/components";
 
 setDefaultNamespace("navbar");
+
+const navItems = [
+	{ path: "/about", label: "about" },
+	{ path: "/events", label: "events" },
+	{ path: "/blog", label: "blog" },
+	{ path: "/governance", label: "governance" },
+	{ path: "/team", label: "team" },
+];
 ---
 
 <style>
 	:root {
 		--menu-transition-duration: 300ms;
 	}
-	
+
 	/* Respect reduced motion preferences */
 	@media (prefers-reduced-motion: reduce) {
 		#mobile-menu,
-		#menu-icon-path {
+		#menu-line-1,
+		#menu-line-2,
+		#menu-line-3 {
 			transition-duration: 0.001ms !important;
 		}
 	}
 </style>
 
 <nav
+	id="site-nav"
 	aria-label="Navigation Bar"
-	class="border-b-4 border-primary/50 text-center text-secondary"
+	class="relative border-b z-10 border-primary/30 bg-background/90 px-4 text-center text-primary shadow-sm backdrop-blur-none md:px-6 md:backdrop-blur"
 >
-	<div class="flex items-center justify-between px-4 py-2 md:hidden">
-		<a href={localizePath("/")} class="block">
-			<h1 class="text-2xl text-tertiary">{t("home")}</h1>
+	<div class="flex items-center justify-between gap-4 px-4 py-3 md:hidden">
+		<a href={localizePath("/")} class="flex items-center gap-2">
+			<img
+				src="/logo.png"
+				alt="uODPA logo"
+				class="h-10 w-10 rounded-full border border-primary/30"
+				loading="eager"
+				decoding="async"
+			/>
+			<span class="text-xl font-bold text-primary">{t("home")}</span>
 		</a>
-		<button
-			id="mobile-menu-button"
-			aria-label="Toggle mobile menu"
-			aria-expanded="false"
-			aria-controls="mobile-menu"
-			class="text-secondary hover:text-tertiary focus:ring-2 focus:ring-tertiary z-50"
-		>
-			<svg id="menu-icon" class="h-8 w-8" viewBox="0 0 24 24" aria-hidden="true">
-				<line id="menu-line-1" x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="transition: all var(--menu-transition-duration); transform-origin: center;" />
-				<line id="menu-line-2" x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="transition: all var(--menu-transition-duration); transform-origin: center;" />
-				<line id="menu-line-3" x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="transition: all var(--menu-transition-duration); transform-origin: center;" />
-			</svg>
-		</button>
+		<details id="mobile-nav-details" class="relative">
+			<summary
+				aria-label="Toggle mobile menu"
+				aria-controls="mobile-menu"
+				aria-expanded="false"
+				class="mobile-menu-trigger list-none rounded-md p-1 text-primary hover:bg-primary/10 hover:text-tertiary focus:ring-2 focus:ring-tertiary"
+			>
+				<svg
+					id="menu-icon"
+					class="h-8 w-8"
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+				>
+					<line
+						id="menu-line-1"
+						x1="3"
+						y1="6"
+						x2="21"
+						y2="6"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						style="transition: all var(--menu-transition-duration); transform-origin: center;"
+					></line>
+					<line
+						id="menu-line-2"
+						x1="3"
+						y1="12"
+						x2="21"
+						y2="12"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						style="transition: all var(--menu-transition-duration); transform-origin: center;"
+					></line>
+					<line
+						id="menu-line-3"
+						x1="3"
+						y1="18"
+						x2="21"
+						y2="18"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						style="transition: all var(--menu-transition-duration); transform-origin: center;"
+					></line>
+				</svg>
+			</summary>
+			<div
+				id="mobile-menu"
+				class="fixed inset-0 -z-10 flex h-screen min-h-screen w-screen flex-col items-stretch gap-3 overflow-y-auto bg-background/95 px-5 pb-6 pt-20 text-left shadow-2xl opacity-0 invisible pointer-events-none translate-y-2 scale-[0.99] backdrop-blur-md transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] supports-[height:100dvh]:h-dvh"
+			>
+				{
+					navItems.map((item, index) => (
+						<a
+							href={localizePath(item.path)}
+							class="nav-link"
+							style={`--menu-item-delay: ${(index + 1) * 30}ms;`}
+						>
+							{t(item.label)}
+						</a>
+					))
+				}
+				<div
+					class="flex items-center justify-center py-2"
+					style={`--menu-item-delay: ${(navItems.length + 1) * 30}ms;`}
+				>
+					<LanguageSelector
+						class="mx-2 block rounded-md border border-primary/40 bg-white/85 px-2 py-2 text-primary transition-colors duration-500 hover:bg-primary hover:text-white"
+					/>
+				</div>
+			</div>
+		</details>
 	</div>
-	<ul
-		id="mobile-menu"
-		class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-6 bg-background translate-x-full md:static md:flex md:flex-row md:gap-0 md:w-auto md:bg-transparent md:p-0 md:translate-x-0"
-		style="transition: transform var(--menu-transition-duration)"
-		aria-hidden="true"
-	>
-		<li class="hidden md:block md:mr-auto">
-			<a href={localizePath("/")} class="block py-2 md:p-3">
-				<h1 class="text-2xl text-tertiary">{t("home")}</h1>
-			</a>
-		</li>
-		<li class="w-full text-center md:w-fit">
+	<ul class="hidden md:flex md:items-center md:gap-1">
+		<li class="mr-auto hidden md:block">
 			<a
-				href={localizePath("/events")}
-				class="nav-link"
+				href={localizePath("/")}
+				class="flex items-center gap-3 py-2 pr-4"
 			>
-				{t("events")}
+				<img
+					src="/logo.png"
+					alt="uODPA logo"
+					class="h-11 w-11 rounded-full border border-primary/30"
+					loading="eager"
+					decoding="async"
+				/>
+				<span class="text-xl font-bold text-primary">{t("home")}</span>
 			</a>
 		</li>
-		<li class="w-full text-center md:w-fit">
-			<a
-				href={localizePath("/blog")}
-				class="nav-link"
-			>
-				{t("blog")}
-			</a>
-		</li>
-		<li class="w-full text-center md:w-fit">
-			<a
-				href={localizePath("/governance")}
-				class="nav-link"
-			>
-				{t("governance")}
-			</a>
-		</li>
-		<li class="w-full text-center md:w-fit">
-			<a
-				href={localizePath("/team")}
-				class="nav-link"
-			>
-				{t("team")}
-			</a>
-		</li>
+		{
+			navItems.map(item => (
+				<li class="w-full text-center md:w-fit">
+					<a href={localizePath(item.path)} class="nav-link">
+						{t(item.label)}
+					</a>
+				</li>
+			))
+		}
 		<li class="flex items-center justify-center py-2">
 			<LanguageSelector
-				class="mx-2 block rounded-md border border-secondary/50 bg-transparent px-2 py-2 text-secondary transition-colors duration-500 hover:bg-secondary hover:text-white"
+				class="mx-2 block rounded-md border border-primary/40 bg-white/85 px-2 py-2 text-primary transition-colors duration-500 hover:bg-primary hover:text-white md:bg-white/70"
 			/>
 		</li>
 	</ul>
 </nav>
 
-<style>
-	.nav-link {
-		@apply block w-full py-3 text-xl transition-colors duration-500 hover:bg-secondary hover:text-white md:p-4 md:text-base rounded md:rounded-none;
-	}
-</style>
-
 <script>
-	const button = document.getElementById("mobile-menu-button");
-	const menu = document.getElementById("mobile-menu");
-	const menuLine1 = document.getElementById("menu-line-1");
-	const menuLine2 = document.getElementById("menu-line-2");
-	const menuLine3 = document.getElementById("menu-line-3");
-	
-	// Get all focusable elements in the menu
-	const getFocusableElements = () => {
-		if (!menu) return [];
-		return Array.from(
-			menu.querySelectorAll(
-				'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-			)
-		);
-	};
+	const detailsEl = document.getElementById("mobile-nav-details");
+	if (detailsEl instanceof HTMLDetailsElement) {
+		const navEl = document.getElementById("site-nav");
+		const summaryEl = detailsEl.querySelector("summary");
+		const menuEl = document.getElementById("mobile-menu");
+		const menuLinks = menuEl?.querySelectorAll("a");
 
-	let lastFocusedElement: HTMLElement | null = null;
-
-	const closeMenu = () => {
-		if (!button || !menu || !menuLine1 || !menuLine2 || !menuLine3) return;
-		
-		// Slide out and animate to hamburger
-		menu.classList.add("translate-x-full");
-		
-		// Reset lines to hamburger icon
-		menuLine1.style.transform = "rotate(0deg) translateY(0)";
-		menuLine1.style.opacity = "1";
-		menuLine2.style.opacity = "1";
-		menuLine3.style.transform = "rotate(0deg) translateY(0)";
-		menuLine3.style.opacity = "1";
-		
-		button.setAttribute("aria-expanded", "false");
-		menu.setAttribute("aria-hidden", "true");
-		
-		// Re-enable body scroll
-		document.body.style.overflow = "";
-		
-		setTimeout(() => {
-			menu.classList.add("hidden");
-			menu.classList.remove("flex");
-		}, 300);
-		
-		// Restore focus to button
-		if (lastFocusedElement) {
-			lastFocusedElement.focus();
-			lastFocusedElement = null;
-		}
-	};
-
-	const openMenu = () => {
-		if (!button || !menu || !menuLine1 || !menuLine2 || !menuLine3) return;
-		
-		// Save the currently focused element
-		lastFocusedElement = document.activeElement as HTMLElement;
-		
-		// Show menu and animate
-		menu.classList.remove("hidden");
-		menu.classList.add("flex");
-		
-		// Transform lines to X icon
-		menuLine1.style.transform = "rotate(45deg) translateY(6px)";
-		menuLine2.style.opacity = "0";
-		menuLine3.style.transform = "rotate(-45deg) translateY(-6px)";
-		
-		button.setAttribute("aria-expanded", "true");
-		menu.setAttribute("aria-hidden", "false");
-		
-		// Prevent body scroll
-		document.body.style.overflow = "hidden";
-		
-		setTimeout(() => {
-			menu.classList.remove("translate-x-full");
-			
-			// Focus first focusable element in menu
-			const focusableElements = getFocusableElements();
-			if (focusableElements.length > 0) {
-				focusableElements[0].focus();
+		const syncExpandedState = () => {
+			navEl?.classList.toggle("mobile-menu-open", detailsEl.open);
+			if (summaryEl) {
+				summaryEl.setAttribute(
+					"aria-expanded",
+					detailsEl.open ? "true" : "false",
+				);
 			}
-		}, 10);
-	};
+		};
 
-	const toggleMenu = () => {
-		const isExpanded = button?.getAttribute("aria-expanded") === "true";
-		if (isExpanded) {
-			closeMenu();
-		} else {
-			openMenu();
-		}
-	};
+		const setMenuOpen = (isOpen: boolean) => {
+			detailsEl.open = isOpen;
+			syncExpandedState();
+		};
 
-	// Focus trap for keyboard navigation
-	const handleFocusTrap = (e: KeyboardEvent) => {
-		if (!menu || menu.classList.contains("hidden")) return;
-		
-		const focusableElements = getFocusableElements();
-		if (focusableElements.length === 0) return;
-		
-		const firstElement = focusableElements[0];
-		const lastElement = focusableElements[focusableElements.length - 1];
-		
-		if (e.key === "Tab") {
-			if (e.shiftKey) {
-				// Shift + Tab
-				if (document.activeElement === firstElement) {
-					e.preventDefault();
-					lastElement.focus();
-				}
-			} else {
-				// Tab
-				if (document.activeElement === lastElement) {
-					e.preventDefault();
-					firstElement.focus();
-				}
-			}
-		}
-	};
+		const closeMenu = () => setMenuOpen(false);
 
-	// Event listeners
-	button?.addEventListener("click", toggleMenu);
-	
-	button?.addEventListener("keydown", (e) => {
-		if (e.key === "Enter" || e.key === " ") {
-			e.preventDefault();
-			toggleMenu();
-		}
-	});
-	
-	// ESC key support
-	document.addEventListener("keydown", (e) => {
-		if (e.key === "Escape") {
-			const isExpanded = button?.getAttribute("aria-expanded") === "true";
-			if (isExpanded) {
+		summaryEl?.addEventListener("click", event => {
+			event.preventDefault();
+			setMenuOpen(!detailsEl.open);
+		});
+
+		menuLinks?.forEach(link => {
+			link.addEventListener("click", closeMenu);
+		});
+
+		document.addEventListener("keydown", event => {
+			if (event.key === "Escape" && detailsEl.open) {
 				closeMenu();
 			}
-		}
-	});
-	
-	// Focus trap
-	document.addEventListener("keydown", handleFocusTrap);
-	
-	// Close menu on navigation (when clicking a link)
-	menu?.addEventListener("click", (e) => {
-		const target = e.target as HTMLElement;
-		if (target.tagName === "A") {
-			// Small delay to allow navigation to start
-			setTimeout(closeMenu, 100);
-		}
-	});
+		});
+
+		document.addEventListener("click", event => {
+			if (!detailsEl.open) return;
+			if (!(event.target instanceof Node)) return;
+			if (!detailsEl.contains(event.target)) {
+				closeMenu();
+			}
+		});
+
+		syncExpandedState();
+	}
 </script>
+
+<style>
+	@reference "../styles/global.css";
+
+	#site-nav.mobile-menu-open {
+		border-bottom-color: transparent;
+	}
+
+	details[open] #mobile-menu {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		transform: translateY(0) scale(1);
+	}
+
+	details summary::-webkit-details-marker {
+		display: none;
+	}
+
+	details summary {
+		list-style: none;
+	}
+
+	details[open] #menu-line-1 {
+		transform: rotate(45deg) translateY(6px);
+	}
+
+	details[open] #menu-line-2 {
+		opacity: 0;
+	}
+
+	details[open] #menu-line-3 {
+		transform: rotate(-45deg) translateY(-6px);
+	}
+
+	#menu-line-1,
+	#menu-line-2,
+	#menu-line-3 {
+		transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	#mobile-menu > * {
+		opacity: 0;
+		transform: translateY(8px);
+		transition:
+			opacity 260ms ease,
+			transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: var(--menu-item-delay, 0ms);
+	}
+
+	details[open] #mobile-menu > * {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.nav-link {
+		@apply block w-full rounded-lg px-4 py-3 text-xl font-semibold text-primary transition-colors duration-300 hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-tertiary md:rounded md:text-base;
+	}
+</style>

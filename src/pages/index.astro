@@ -1,6 +1,5 @@
 ---
 import { changeLanguage, setDefaultNamespace, t } from "i18next";
-import { Trans } from "astro-i18next/components";
 import { localizePath } from "astro-i18next";
 import Layout from "../layouts/Layout.astro";
 
@@ -10,41 +9,35 @@ setDefaultNamespace("home");
 ---
 
 <Layout title={t("title")} description={t("description")}>
-	<div class="my-auto flex flex-col items-center gap-8">
+	<div class="section-shell my-auto flex flex-col items-center gap-8">
 		<h1
-			class="mb-auto max-w-3xl animate-[fade_5s_forwards] text-center font-serif text-[6vmin] font-extrabold leading-normal tracking-wide text-primary opacity-0"
+			class="max-w-4xl animate-[fade-up_700ms_forwards] text-center font-serif text-[clamp(2rem,5vw,3.75rem)] font-extrabold leading-tight tracking-wide text-primary opacity-0"
 		>
 			{t("heading")}
 		</h1>
-		<h2 class="max-w-3xl animate-[fade_5s_forwards_1s] text-center text-2xl font-bold text-secondary opacity-0">
+		<h2
+			class="max-w-3xl animate-[fade-up_700ms_forwards_120ms] text-center text-2xl font-bold text-tertiary opacity-0"
+		>
 			{t("subheading")}
 		</h2>
-		<p class="max-w-3xl animate-[fade_5s_forwards_2s] text-center text-lg leading-relaxed opacity-0">
-			<Trans i18nKey="contents">
-				<span class="font-bold text-tertiary">uOttawa Legal Hackers</span> is a dynamic, student-led organization
-				dedicated to exploring the intersection of
-				<span class="font-semibold text-quaternary">law</span>, <span class="font-semibold text-primary"
-					>policy</span
-				>,
-				<span class="font-semibold text-secondary">technology</span>. As the third Legal Hackers chapter in
-				Canada, we provide a platform for students to engage with industry leaders through roundtables,
-				webinars, and workshops. Join us in our mission to foster innovation, creativity, and inclusivity in the
-				legal tech space.
-			</Trans>
+		<p
+			class="surface-card max-w-4xl animate-[fade-up_700ms_forwards_240ms] text-center text-lg leading-relaxed text-quaternary/85 opacity-0"
+		>
+			{t("contents")}
 		</p>
-		<div class="flex animate-[fade_5s_forwards_3s] gap-4 opacity-0">
+		<div
+			class="flex animate-[fade-up_700ms_forwards_360ms] flex-wrap justify-center gap-4 opacity-0"
+		>
 			<a
 				href="https://forms.gle/qArg7RfNRrhedd1y7"
 				target="_blank"
+				rel="noopener noreferrer"
 				referrerpolicy="no-referrer"
-				class="rounded bg-tertiary px-6 py-2 font-bold text-white transition duration-300 hover:bg-quaternary"
+				class="btn-secondary"
 			>
 				{t("join-the-club")}
 			</a>
-			<a
-				href={localizePath("/events")}
-				class="rounded bg-primary px-6 py-2 font-bold text-white transition duration-300 hover:bg-secondary"
-			>
+			<a href={localizePath("/events")} class="btn-primary">
 				{t("explore-events")}
 			</a>
 		</div>

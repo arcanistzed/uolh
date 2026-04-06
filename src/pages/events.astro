@@ -8,14 +8,16 @@ setDefaultNamespace("events");
 ---
 
 <Layout title={t("title")} description={t("description")}>
-	<main class="mx-auto flex h-full w-full max-w-2xl flex-col gap-8 p-4">
-		<h1 class="text-4xl font-bold leading-relaxed text-tertiary">{t("heading")}</h1>
-		<p class="leading-relaxed">
+	<main class="section-shell flex h-full max-w-3xl flex-col gap-6">
+		<h1 class="page-title">{t("heading")}</h1>
+		<p class="surface-card page-intro">
 			{t("description")}
 		</p>
 		<iframe
 			src="https://calendar.google.com/calendar/embed?wkst=1&ctz=America%2FToronto&showPrint=0&showCalendars=0&showNav=0&showDate=0&showTabs=0&mode=AGENDA&showTitle=0&src=ZjNmYzJiYWQ3MzM1YTNiNGRkMTIyZTEwZjA3ODc0NWViODEzMmU5NDczMTM1ZjQ0ZGNlOTMyM2JiMDY2YmIyMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+			title="Google Calendar events agenda"
 			style="border-width:0"
-			class="h-full border-none"></iframe>
+			class="h-[65vh] w-full rounded-2xl border border-primary/25 bg-white shadow-sm"
+		></iframe>
 	</main>
 </Layout>

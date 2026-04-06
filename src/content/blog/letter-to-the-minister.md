@@ -1,6 +1,6 @@
 ---
 title: "Open Letter to the Minister of AI: A Student Perspective on Responsible Innovation"
-description: "The uOttawa Legal Hackers Club Submission for the National AI Strategy, detailing the systemic risks to the Canadian workforce and democracy."
+description: "The uOttawa Digital Policy Association submission for the National AI Strategy, detailing the systemic risks to the Canadian workforce and democracy."
 pubDate: 2025-10-31
 author: "Daniel Thorp"
 tags: ["letter", "AI", "policy", "government"]
@@ -8,7 +8,7 @@ tags: ["letter", "AI", "policy", "government"]
 
 Dear Minister Solomon,
 
-We are writing on behalf of the uOttawa Legal Hackers Club, a multidisciplinary group of University of Ottawa students. We are providing this submission for the "30-Day National Sprint" consultation on Canada's AI Strategy. As students at the intersection of technology and policy, we are the generation preparing to enter a workforce and society that will be fundamentally reshaped.
+We are writing on behalf of the uOttawa Digital Policy Association, a multidisciplinary group of University of Ottawa students. We are providing this submission for the "30-Day National Sprint" consultation on Canada's AI Strategy. As students at the intersection of technology and policy, we are the generation preparing to enter a workforce and society that will be fundamentally reshaped.
 
 Before addressing the consultation's themes, we must clarify our terms. The term "Artificial Intelligence" is often used as a vague marketing umbrella, grouping everything from beneficial predictive models used in science to the specific technologies causing public concern. Our submission is not a critique of all AI; we support models that assist in scientific discovery or complex data analysis. Our concern is focused on the reckless, large-scale deployment of generative Large Language Models (LLMs) and related technologies that replace human workers, devalue creative industries, and threaten our democratic processes.
 
@@ -50,11 +50,11 @@ The consultation's focus on "scaling champions" feels disconnected from the imme
 -   The theme of "Commercialization" must be balanced with the unresolved question of Intellectual Property. AI models are being trained on the entire corpus of Canadian news, art, academic research, and public data, often without consent or compensation. A national strategy must address how Canadian creators and knowledge producers will be protected in this new economy.
 
 We are eager to contribute to an innovative future for Canada. However, that future must be built on a foundation of responsibility, safety, and democratic values. We urge you to place these principles at the very heart of Canada's National AI Strategy.
-  
+
 Thank you for your time and for considering the student perspective. We would welcome the opportunity to discuss these points further.
 
 Sincerely,
 
 Daniel Thorp
 
-President, uOttawa Legal Hackers Club
+President, uOttawa Digital Policy Association

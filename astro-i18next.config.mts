@@ -5,11 +5,13 @@ export default {
 	locales: ["en", "fr"],
 	routes: {
 		fr: {
+			about: "a-propos",
+			blog: "blog",
 			events: "evenements",
 			governance: "gouvernance",
 			team: "equipe",
 		},
 	},
-	namespaces: ["navbar", "footer", "home", "events", "blog", "governance", "team"],
+	namespaces: ["navbar", "footer", "home", "about", "events", "blog", "governance", "team"],
 	defaultNamespace: "common",
 } satisfies AstroI18nextConfig;

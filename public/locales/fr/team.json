@@ -1,18 +1,18 @@
 {
-    "title": "Rencontrez l'équipe | uOttawa Legal Hackers",
-    "heading": "Rencontrez l'équipe",
-    "description": "Faites connaissance avec l'équipe derrière uOttawa Legal Hackers. Notre équipe de direction est dédiée à la promotion de l'innovation et de l'inclusivité. Rencontrez les leaders qui font tout cela!",
-    "select-year": "Sélectionner l'année:",
-    "vacant": "Vacant",
-    "positions": {
-        "president": "Président",
-        "co-president": "Co-président.e",
-        "advisor": "Conseiller",
-        "vp-communications": "VP Communications",
-        "vp-finance": "VP Finance",
-        "vp-events": "VP Événements",
-        "vp-internal": "VP Interne",
-        "vp-external": "VP Externe",
-        "first-year-rep": "Rep des 1ère année"
-    }
+	"title": "Rencontrez l'équipe | Association de politique numérique de l'Université d'Ottawa",
+	"heading": "Rencontrez l'équipe",
+	"description": "Faites connaissance avec l'équipe de l'Association de politique numérique de l'Université d'Ottawa. Notre équipe de direction soutient une programmation inclusive et interdisciplinaire à l'intersection de la technologie, du droit, de la gouvernance et des politiques publiques.",
+	"select-year": "Sélectionner l'année :",
+	"vacant": "Vacant",
+	"positions": {
+		"president": "Président",
+		"co-president": "Co-président.e",
+		"advisor": "Conseiller",
+		"vp-communications": "VP Communications",
+		"vp-finance": "VP Finance",
+		"vp-events": "VP Événements",
+		"vp-internal": "VP Interne",
+		"vp-external": "VP Externe",
+		"first-year-rep": "Représentant.e de première année"
+	}
 }
