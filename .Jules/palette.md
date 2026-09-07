@@ -9,3 +9,7 @@
 ## 2023-10-27 - Added active state to navigation links
 **Learning:** The navigation menu previously lacked any visual or semantic indication of the current active page, violating WCAG principles for providing context and hindering general usability for sighted users.
 **Action:** Implemented dynamic path checking to apply `aria-current="page"` to the active link. This allowed for semantic indication for screen readers and styling using Tailwind's `aria-[current=page]:` variant to provide clear visual feedback without custom CSS.
+
+## 2024-05-18 - Playwright Focus Visualization
+**Learning:** Using JS `.focus()` doesn't always trigger `focus-visible` styling (since browsers differentiate between programmatic and keyboard focus).
+**Action:** When validating focus-visible styling with Playwright, you may need to explicitly simulate tab traversal (e.g. `page.keyboard.press("Tab")`) or append the focus classes manually for visual verification.
