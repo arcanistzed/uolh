@@ -9,3 +9,7 @@
 ## 2023-10-27 - Added active state to navigation links
 **Learning:** The navigation menu previously lacked any visual or semantic indication of the current active page, violating WCAG principles for providing context and hindering general usability for sighted users.
 **Action:** Implemented dynamic path checking to apply `aria-current="page"` to the active link. This allowed for semantic indication for screen readers and styling using Tailwind's `aria-[current=page]:` variant to provide clear visual feedback without custom CSS.
+
+## 2026-09-09 - Focus Management and Mobile Menu Accessibility
+**Learning:** In Astro components using standard DOM scripts (like `<script>` blocks), focus rings bound to `focus:` utilities in Tailwind CSS penalize mouse users. Additionally, closing native `<details>` or custom dropdowns via keyboard needs explicit programmatic focus restoration to prevent screen readers from losing context.
+**Action:** Always prefer `focus-visible:` for interactive elements over `focus:` to maintain visual aesthetics for mouse users while keeping a11y for keyboard users. When building custom toggles (e.g. mobile menus), ensure that pressing `Escape` triggers `.focus()` back on the toggle button element.
