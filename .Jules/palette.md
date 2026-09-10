@@ -9,3 +9,7 @@
 ## 2023-10-27 - Added active state to navigation links
 **Learning:** The navigation menu previously lacked any visual or semantic indication of the current active page, violating WCAG principles for providing context and hindering general usability for sighted users.
 **Action:** Implemented dynamic path checking to apply `aria-current="page"` to the active link. This allowed for semantic indication for screen readers and styling using Tailwind's `aria-[current=page]:` variant to provide clear visual feedback without custom CSS.
+
+## 2026-08-17 - [Mobile Menu Accessibility]
+**Learning:** When custom UI components like mobile menus are closed via keyboard interactions (such as pressing the Escape key), keyboard focus is often lost, leaving users without context.
+**Action:** Always programmatically return focus to the trigger element (e.g., the menu button) when closing a custom component via keyboard to prevent context loss for keyboard users.

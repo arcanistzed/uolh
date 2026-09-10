@@ -60,7 +60,7 @@ const isCurrentPath = (path: string) => {
 				aria-label="Toggle mobile menu"
 				aria-controls="mobile-menu"
 				aria-expanded="false"
-				class="mobile-menu-trigger list-none rounded-md p-1 text-primary hover:bg-primary/10 hover:text-tertiary focus:ring-2 focus:ring-tertiary"
+				class="mobile-menu-trigger list-none rounded-md p-1 text-primary hover:bg-primary/10 hover:text-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tertiary"
 			>
 				<svg
 					id="menu-icon"
@@ -212,6 +212,7 @@ const isCurrentPath = (path: string) => {
 		document.addEventListener("keydown", event => {
 			if (event.key === "Escape" && detailsEl.open) {
 				closeMenu();
+				summaryEl?.focus();
 			}
 		});
 
@@ -282,6 +283,6 @@ const isCurrentPath = (path: string) => {
 	}
 
 	.nav-link {
-		@apply block w-full rounded-lg px-4 py-3 text-xl font-semibold text-primary transition-colors duration-300 hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-tertiary md:rounded md:text-base aria-[current=page]:bg-primary/10 aria-[current=page]:text-tertiary aria-[current=page]:hover:text-white;
+		@apply block w-full rounded-lg px-4 py-3 text-xl font-semibold text-primary transition-colors duration-300 hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tertiary md:rounded md:text-base aria-[current=page]:bg-primary/10 aria-[current=page]:text-tertiary aria-[current=page]:hover:text-white;
 	}
 </style>
